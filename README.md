@@ -1,24 +1,35 @@
 # micronaut-book-vue
 
 ## Project setup
+
 ```
 npm install
 ```
 
 ### Compiles and hot-reloads for development
+
 ```
 npm run serve
 ```
 
 ### Compiles and minifies for production
+
 ```
 npm run build
 ```
 
 ### Lints and fixes files
+
 ```
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 結合開発
+
+```
+$ skaffold dev --port-forward
+```
+
+# 参考
+
+- [Vuetify 2.0 で datatable を使う - Qiita](https://qiita.com/trustbank_kei/items/45d02313241c8235ad5e)

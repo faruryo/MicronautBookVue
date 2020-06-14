@@ -1,0 +1,58 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: book-api
+spec:
+  selector:
+    app: book-api
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: book-api
+  name: book-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: book-api
+  template:
+    metadata:
+      labels:
+        app: book-api
+    spec:
+      containers:
+        - name: book
+          image: faruryo/micronaut-book-api:b6e10b6afe4800b80c8938706a6a9e1d2b70a72b
+          env:
+            - name: MICRONAUT_ENVIRONMENTS
+              value: local
+          envFrom:
+            - configMapRef:
+                name: mysql-env
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "1000m"
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: /book
+            failureThreshold: 2
+            periodSeconds: 3
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: /book
+            failureThreshold: 5
+            periodSeconds: 5

@@ -5,15 +5,31 @@ metadata:
 build:
   artifacts:
     - image: faruryo/micronaut-book-vue
-  local: {}
+      docker:
+        dockerfile: Dockerfile
+  local:
+    useBuildkit: true
 deploy:
   kubectl:
     manifests:
       - kubernetes/vue.yaml
-      - kubernetes/api.yaml
-      - kubernetes/mysql.yaml
 portForward:
   - resourceType: service
     resourceName: book-vue
     port: 80
     localPort: 8081
+profiles:
+  - name: dev
+    build:
+      artifacts:
+        - image: faruryo/micronaut-book-vue-dev
+          docker:
+            dockerfile: Dockerfile-dev
+          sync:
+            infer:
+              - "public/**/*"
+              - "src/**/*"
+    deploy:
+      kubectl:
+        manifests:
+          - kubernetes/vue-dev.yaml

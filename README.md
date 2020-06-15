@@ -24,11 +24,41 @@ npm run build
 npm run lint
 ```
 
-### 結合開発
+### ローカル開発環準備
+
+- Docker for Kubernetes や minikube などのローカル Kubernetes 環境をインストール
+- skaffold インストール
+- book-api デプロイ
+  ```
+  kubectl apply -f kubernetes/book-api
+  ```
+
+### 結合開発 dev 環境
+
+webpack DevServer によるホットリロードな開発。初期起動は 5 分ほどかかるかも。
+
+```
+$ skaffold dev -p dev --port-forward
+```
+
+[http://localhost:8081/](http://localhost:8081/)
+
+### 結合開発 production 環境
+
+本番環境構成での開発。毎回 Docker build が走るため遅い。
 
 ```
 $ skaffold dev --port-forward
 ```
+
+[http://localhost:8081/](http://localhost:8081/)
+
+### ローカル開発リセット
+
+- book-api アンデプロイ
+  ```
+  kubectl delete -f kubernetes/book-api
+  ```
 
 # 参考
 

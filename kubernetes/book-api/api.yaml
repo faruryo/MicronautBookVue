@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: book
-          image: faruryo/micronaut-book-api:b6e10b6afe4800b80c8938706a6a9e1d2b70a72b
+          image: faruryo/micronaut-book-api
           env:
             - name: MICRONAUT_ENVIRONMENTS
               value: local

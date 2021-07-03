@@ -1,35 +1,35 @@
-apiVersion: skaffold/v2beta5
+apiVersion: skaffold/v2beta17
 kind: Config
 metadata:
   name: micronaut-book-vue
 build:
   artifacts:
-    - image: faruryo/micronaut-book-vue
-      docker:
-        dockerfile: Dockerfile
+  - image: faruryo/micronaut-book-vue
+    docker:
+      dockerfile: Dockerfile
   local:
     useBuildkit: true
 deploy:
   kubectl:
     manifests:
-      - kubernetes/vue.yaml
+    - kubernetes/vue.yaml
 portForward:
-  - resourceType: service
-    resourceName: book-vue
-    port: 80
-    localPort: 8081
+- resourceType: service
+  resourceName: book-vue
+  port: 80
+  localPort: 8081
 profiles:
-  - name: dev
-    build:
-      artifacts:
-        - image: faruryo/micronaut-book-vue-dev
-          docker:
-            dockerfile: Dockerfile-dev
-          sync:
-            infer:
-              - "public/**/*"
-              - "src/**/*"
-    deploy:
-      kubectl:
-        manifests:
-          - kubernetes/vue-dev.yaml
+- name: dev
+  build:
+    artifacts:
+    - image: faruryo/micronaut-book-vue-dev
+      sync:
+        infer:
+        - public/**/*
+        - src/**/*
+      docker:
+        dockerfile: Dockerfile-dev
+  deploy:
+    kubectl:
+      manifests:
+      - kubernetes/vue-dev.yaml

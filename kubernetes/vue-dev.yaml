@@ -119,11 +119,7 @@ spec:
           imagePullPolicy: Never
           resources:
             requests:
-              memory: "512Mi"
-              cpu: "100m"
-            limits:
-              memory: "512Mi"
-              cpu: "1000m"
+              memory: "1024Mi"
           readinessProbe:
             httpGet:
               port: 8080
